@@ -5,7 +5,7 @@ const getAllEvent = async (req, res) => {
     const data = await db.events.get();
     let events = [];
     data.forEach((snapshot) => {
-      events.push(snapshot.data());
+      events.push({ id: snapshot.id, ...snapshot.data() });
     });
     return res.status(200).send({
       status: 200,

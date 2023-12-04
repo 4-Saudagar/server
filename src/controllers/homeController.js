@@ -5,14 +5,27 @@ const getAllData = async (req, res) => {
     const data = await db.ads.get();
     let ads = [];
     data.forEach((snapshot) => {
-      ads.push(snapshot.data());
+      ads.push({ id: snapshot.id, ...snapshot.data() });
     });
 
     const data2 = await db.events.get();
+
     let events = [];
-    data2.forEach((snapshot) => {
-      events.push(snapshot.data());
+
+    const promises = data2.docs.map(async (snapshot) => {
+      const event = { ...snapshot.data() };
+      const partner = await db.partners.doc(event.authorID).get();
+
+      return {
+        author: { ...partner.data() },
+        id: snapshot.id,
+        ...event,
+      };
     });
+
+    events = await Promise.all(promises);
+
+    console.log("events luar", events);
 
     return res.status(200).send({
       status: 200,
@@ -21,6 +34,10 @@ const getAllData = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    return res.status(500).send({
+      status: 500,
+      error: "Internal Server Error",
+    });
   }
 };
 

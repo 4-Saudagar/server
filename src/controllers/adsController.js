@@ -5,7 +5,7 @@ const getAllAds = async (req, res) => {
     const data = await db.ads.get();
     let ads = [];
     data.forEach((snapshot) => {
-      ads.push(snapshot.data());
+      ads.push({ id: snapshot.id, ...snapshot.data() });
     });
     return res.status(200).send({
       status: 200,

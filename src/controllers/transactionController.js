@@ -27,9 +27,9 @@ const transaction = async (req, res) => {
     console.log("gagal");
 
     const transaction_id = uuid();
-    console.log("gagal 2");
+
     const data = await db.tickets.doc(tickets_id).get();
-    console.log("gagal 3");
+
     const ticket = data.data();
 
     console.log(ticket, data);
