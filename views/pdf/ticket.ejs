@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <% for (var i = 0; i < pages.length; i++) { %>
+
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+      <div>
+        <img
+          style="width: 100%"
+          src="https://cdn.discordapp.com/attachments/1125453534062719016/1162302877507784704/Banner_Ticket.png?ex=653b71e8&is=6528fce8&hm=b97686cec57f00ef08a7b30985c857004429ae330f7fa8b19e53a57afd92992a&"
+          alt=""
+        />
+      </div>
+      <p style="font-weight: bold; padding: 2rem">
+        Ticket <%= pages[i].ticket_number %> of <%= pages.length %>
+      </p>
+      <table style="width: 100%">
+        <tr>
+          <td style="width: 50%">
+            <img style="width: 100%" src="<%= pages[i].qr %>" />
+          </td>
+
+          <td style="margin: auto auto; width: 50%">
+            <div>
+              <div>Tiket No. / No. Tiket</div>
+              <div style="font-weight: bold"><%= pages[i].ticket_token %></div>
+            </div>
+            <div style="margin-top: 1rem">
+              <div>Name / Nama</div>
+              <div style="font-weight: bold"><%= pages[i].nama %></div>
+            </div>
+            <div style="margin-top: 1rem">
+              <div>Email</div>
+              <div style="font-weight: bold"><%= pages[i].email %></div>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div style="padding: 2rem">
+        <hr />
+        <div style="font-weight: bold; margin-top: 1rem"><%= event_name %></div>
+        <div style="font-weight: bold; font-size: 30px"><%= item_id %></div>
+
+        <table style="margin-top: 1rem">
+          <tr>
+            <td>
+              <div>Open Gate</div>
+              <div>Date</div>
+              <div>Venue Event</div>
+            </td>
+            <td style="font-weight: bold">
+              <div>: <%= start %> - <%= end %> WIB</div>
+              <div>: <%= date %></div>
+              <div>: <%= location %></div>
+            </td>
+          </tr>
+        </table>
+        <hr />
+
+        <div>
+          <div style="margin-top: 2rem">
+            <p style="font-weight: bold">Syarat & Ketentuan</p>
+            <p
+              style="font-weight: bold; margin-top: 1rem"
+              class="font-bold mt-[1rem]"
+            >
+              Umum
+            </p>
+            <p>1. Harga belum termasuk biaya administrasi.</p>
+            <p>2. Pembeli wajib megisi data diri pribadi saat memesan.</p>
+            <p>3. Tiket yang sudah dibeli tidak dapat dikembalikan.</p>
+
+            <p style="font-weight: bold; margin-top: 1rem">E-tiket</p>
+            <p>1. E-Tiket tidak dapat dikembalikan</p>
+            <p>2. Kehilangan E-Tiket merupakan tanggung jawab pemegang</p>
+            <p>
+              3. Masing - masing E-ticket akan ditukarkan pada tanggal kegiatan
+              untuk memilih tempat duduk.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--       
+          <div style="display: flex; width: 100%">
+            <div style="width: 50%"></div>
+            <div style="width: 50%; margin: auto auto"></div>
+          </div> -->
+    </div>
+    <% } %>
+  </body>
+</html>

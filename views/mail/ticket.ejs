@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body
+    style="
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: auto auto;
+      background-color: #f0f0f0;
+      padding: 2rem;
+    "
+  >
+    <div
+      style="
+        margin: auto auto;
+        background: #fafafa;
+        width: 100vw;
+        max-width: 600px;
+        padding: 2rem;
+      "
+    >
+      <img
+        style="width: 100%"
+        src="https://cdn.discordapp.com/attachments/1125453534062719016/1162302877507784704/Banner_Ticket.png?ex=653b71e8&is=6528fce8&hm=b97686cec57f00ef08a7b30985c857004429ae330f7fa8b19e53a57afd92992a&"
+      />
+      <div style="font-size: 1.2rem">
+        IMAGE HEADER DIATAS MENYESUAIKAN DATA NANTI,
+      </div>
+      <div style="font-size: 1.2rem">Hi <%= nama %>,</div>
+      <div style="margin-top: 1rem">
+        Selamat pembelian tiket anda telah berhasil
+      </div>
+      <div>
+        Silahkan unduh tiket untuk
+        <b><%= event.title %></b>
+        pada lampiran email ini
+      </div>
+      <div style="margin-top: 1.2rem">
+        Jangan lupa untuk hadir pada waktu dan tanggal berikut:
+      </div>
+      <div style="display: flex">
+        <div>
+          <div>Waktu Open Gate</div>
+          <div>Tanggal</div>
+          <div>Tempat</div>
+        </div>
+        <div style="margin-left: 1rem; font-weight: bold">
+          <div>: <%= event.start %> - <%= event.end %> WIB</div>
+          <div>: <%= event.date %></div>
+          <div>: <%= event.loc %></div>
+        </div>
+      </div>
+      <div style="background-color: #fff0a1; padding: 1rem; margin-top: 2rem">
+        <div style="font-weight: bold">Tips:</div>
+        <div>
+          Unduh tiketmu pada lampiran email ini sebelum datang dan menghadiri
+          acara <%= event.title %>.
+        </div>
+      </div>
+      <div style="font-weight: bold; margin-top: 2rem">Rincian Item</div>
+      <div style="display: flex">
+        <div>
+          <div>No Pesanan</div>
+          <div>Pesanan</div>
+          <div>Jumlah Tiket</div>
+          <div>Nama Pemesan</div>
+          <div>No. Telephone</div>
+          <div>Email</div>
+        </div>
+
+        <div style="padding-left: 1rem; font-weight: bold">
+          <div>: <%= transaction_id %></div>
+          <div>: <%= event.title %></div>
+          <div>: <%= jumlah_ticket %></div>
+          <div>: <%= nama %></div>
+          <div>: <%= wa %></div>
+          <div>: <%= email %></div>
+        </div>
+      </div>
+      <!-- <a href="https://mrms.umn.ac.id/e-ticket?order_id=<%= transaction_id %>">
+        <div
+          style="
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <button
+            style="
+              font-weight: bold;
+              background-color: #fff0a1;
+              padding: 1rem;
+              border-radius: 1rem;
+              border: none;
+            "
+          >
+            Lihat E-Tiket Anda
+          </button>
+        </div>
+      </a> -->
+    </div>
+    <div
+      style="
+        margin: auto auto;
+        margin-top: 2rem;
+        padding: 2rem;
+        width: 100vw;
+        max-width: 600px;
+        background-color: #fafafa;
+      "
+    >
+      <div style="font-weight: bold">Butuh Bantuan?</div>
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSedPpIfUO3BUyl6p7Cn-CzQqyBzqrSDnfpSbLhzl2HPrN4OaQ/viewform"
+        ><div>
+          (Kalo mau ada form kendala)Form Kendala Tiket <%= event.title %>
+        </div></a
+      >
+    </div>
+    <div style="text-align: center; margin: auto auto; margin-top: 2rem">
+      <img
+        style="width: 5rem"
+        src="https://cdn.discordapp.com/attachments/1062052561068228688/1065503219209478184/Logo_Mr___Ms_UMN_2023_-_Circle_copy.png?ex=6539f933&is=65278433&hm=c8b2e66028ddf0407cdad16f335eddbca1c1b3b8006c59232c5abb6f49f2bb27&"
+      />
+      <a href="https://mrms.umn.ac.id/ticket-himalaya"
+        ><div style="font-weight: bold">
+          NANTI DISESUAIN REDIRECT SAMA LOGO KE WEB MAIN KALO MAU (UTIXT)
+        </div></a
+      >
+      <div>Copyright Ⓒ 2023 UTIXT All rights reserved</div>
+    </div>
+  </body>
+</html>
