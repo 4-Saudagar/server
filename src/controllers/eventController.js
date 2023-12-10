@@ -16,42 +16,32 @@ const getAllEvent = async (req, res) => {
   }
 };
 
-const getEventDetail = async (req, res) => {
-  try {
-    const { id } = req.body;
-    const event = await db.events.doc(id).get();
-
-    return res.status(200).send({
-      status: 200,
-      data: event.data(),
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 const addEvent = async (req, res) => {
   try {
     const {
       authorID = "",
-      authorImg = "",
-      date,
+      eventName,
+      contactPerson,
       image,
       location,
-      price,
-      title,
+      eventRules,
+      eventDescription,
+      eventStart,
+      eventEnd,
     } = req.body;
 
     console.log(req.body.body);
 
     const data = await db.events.doc().set({
       authorID: authorID,
-      authorImg: authorImg,
-      date: date,
+      eventName: eventName,
+      contactPerson: contactPerson,
       image: image,
       location: location,
-      price: price,
-      title: title,
+      eventRules: eventRules,
+      eventDescription: eventDescription,
+      eventStart: eventStart,
+      eventEnd: eventEnd,
     });
 
     return res.status(200).send({
@@ -64,6 +54,6 @@ const addEvent = async (req, res) => {
 
 module.exports = {
   getAllEvent,
-  getEventDetail,
+
   addEvent,
 };

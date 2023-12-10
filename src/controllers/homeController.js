@@ -25,8 +25,6 @@ const getAllData = async (req, res) => {
 
     events = await Promise.all(promises);
 
-    console.log("events luar", events);
-
     return res.status(200).send({
       status: 200,
       ads: ads,

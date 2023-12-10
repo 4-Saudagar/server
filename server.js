@@ -9,7 +9,6 @@ const APP_URL = process.env.APP_URL;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-// app.use(express.static("storage"));
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -72,6 +71,8 @@ app.use("/events", require("./src/routes/event"));
 app.use("/ads", require("./src/routes/ads"));
 app.use("/home", require("./src/routes/home"));
 app.use("/transaction", require("./src/routes/transaction"));
+app.use("/partner", require("./src/routes/partner"));
+
 app.listen(PORT, () => {
   console.log(`Listening to the server on port : ${PORT}`);
 });

@@ -9,6 +9,7 @@ const checkLogin = async (req, res) => {
     if (token == undefined) {
       throw new ValidationException(404, "Token required", "TOKEN NOT FOUND");
     }
+
     const decodeValue = await admin.auth().verifyIdToken(token);
 
     if (decodeValue) {
@@ -16,6 +17,8 @@ const checkLogin = async (req, res) => {
       const id = decodeValue.uid;
       console.log("id", decodeValue);
       let users = await db.users.doc(id).get();
+
+      console.log("users", users.data());
 
       return res.status(200).json({
         code: 200,

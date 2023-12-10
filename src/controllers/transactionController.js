@@ -9,6 +9,7 @@ let snap = new Midtrans.Snap({
   serverKey: process.env.MIDTRANS_SERVER_KEY,
   clientKey: process.env.MIDTRANS_CLIENT_KEY,
 });
+
 const transaction = async (req, res) => {
   try {
     const {
@@ -18,6 +19,7 @@ const transaction = async (req, res) => {
       nama,
       email,
     } = req.body;
+
     const userData = {
       id: uuid(),
       nama: "Koong",
@@ -67,6 +69,29 @@ const transaction = async (req, res) => {
   }
 };
 
+const listTransactions = async (req, res) => {
+  try {
+    const { eventID } = req.body;
+    const snapshot = await db
+      .transaction()
+      .where("eventID", "==", eventID)
+      .get();
+    const transactions = [];
+
+    snapshot.forEach((doc) => {
+      transactions.push({ id: doc.id, ...doc.data() });
+    });
+
+    res.status(200).json({
+      messsage: "Transaction Event",
+      data: transactions,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   transaction,
+  listTransactions,
 };
