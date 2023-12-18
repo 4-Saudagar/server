@@ -17,11 +17,12 @@ const getAllAds = async (req, res) => {
 };
 
 const addAds = async (req, res) => {
-  const { image, link, contact, dateStart, dateEnd } = req.body;
+  const { adsTitle, image, link, contact, dateStart, dateEnd } = req.body;
   try {
     const data = await db.ads.doc().set({
       image: image,
       link: link,
+      adsTitle: adsTitle,
       contact: contact,
       dateStart: dateStart,
       dateEnd: dateEnd,
