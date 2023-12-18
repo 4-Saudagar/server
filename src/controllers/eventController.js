@@ -20,32 +20,37 @@ const addEvent = async (req, res) => {
   try {
     const {
       authorID = "",
-      eventName,
-      contactPerson,
+      date,
       image,
       location,
-      eventRules,
-      eventDescription,
-      eventStart,
-      eventEnd,
+      price,
+      title,
+      description,
+      rules,
+      contact,
+      ticketType,
     } = req.body;
 
     console.log(req.body.body);
 
     const data = await db.events.doc().set({
       authorID: authorID,
-      eventName: eventName,
-      contactPerson: contactPerson,
+      date: date,
       image: image,
       location: location,
-      eventRules: eventRules,
-      eventDescription: eventDescription,
-      eventStart: eventStart,
-      eventEnd: eventEnd,
+      price: price,
+      title: title,
+      description: description,
+      rules: rules,
+      contact: contact,
+      dateStart: dateStart,
+      dateEnd: dateEnd,
+      ticketType: ticketType,
     });
 
     return res.status(200).send({
       message: "SUCCESS ADD EVENT",
+      data: data,
     });
   } catch (err) {
     console.log(err);

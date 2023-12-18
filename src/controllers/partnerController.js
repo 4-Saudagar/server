@@ -23,14 +23,15 @@ const addPartners = async (req, res) => {
   try {
     const data = await db.ads.doc().set({
       orgName: orgName,
-      image: image,
-      link: link,
+      orgName: orgName,
       contact: contact,
+      image: image,
       orgDesc: orgDesc,
     });
 
     res.status(200).send({
       message: "SUCESS ADD ADS",
+      data: data,
     });
   } catch (err) {
     console.log(err);

@@ -3,6 +3,7 @@ const admin = require("../config/firebase-config");
 const { midtransSnap } = require("../config/midtrans");
 const { v4: uuid } = require("uuid");
 const Midtrans = require("midtrans-client");
+const { name } = require("ejs");
 
 let snap = new Midtrans.Snap({
   isProduction: true,
@@ -18,13 +19,14 @@ const transaction = async (req, res) => {
       id,
       nama,
       email,
+      whatsapp,
     } = req.body;
 
     const userData = {
       id: uuid(),
-      nama: "Koong",
-      email: "koonghiap123@gmail.com",
-      whatsapp: "08979463181",
+      nama: nama,
+      email: email,
+      whatsapp: whatsapp,
     };
     console.log("gagal");
 

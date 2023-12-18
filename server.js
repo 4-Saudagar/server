@@ -12,9 +12,8 @@ app.use(express.static("public"));
 app.use(cors());
 
 app.get("/", (req, res) => {
-  return res.send("Hello 1");
+  return res.send("Hello");
 });
-
 app.set("view engine", "ejs");
 app.get("/testmail", (req, res) => {
   res.render("mail/ticket", {

@@ -17,16 +17,19 @@ const getAllAds = async (req, res) => {
 };
 
 const addAds = async (req, res) => {
-  const { image, link, name } = req.body;
+  const { image, link, contact, dateStart, dateEnd } = req.body;
   try {
     const data = await db.ads.doc().set({
       image: image,
       link: link,
-      name: name,
+      contact: contact,
+      dateStart: dateStart,
+      dateEnd: dateEnd,
     });
 
     res.status(200).send({
       message: "SUCESS ADD ADS",
+      data: data,
     });
   } catch (err) {
     console.log(err);
