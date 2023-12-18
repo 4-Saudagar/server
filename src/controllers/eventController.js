@@ -35,7 +35,7 @@ const addEvent = async (req, res) => {
 
     const data = await db.events.doc().set({
       authorID: authorID,
-      date: date,
+
       image: image,
       location: location,
       price: price,
@@ -45,7 +45,6 @@ const addEvent = async (req, res) => {
       contact: contact,
       dateStart: dateStart,
       dateEnd: dateEnd,
-      ticketType: ticketType,
     });
 
     return res.status(200).send({
