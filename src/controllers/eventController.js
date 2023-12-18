@@ -19,8 +19,7 @@ const getAllEvent = async (req, res) => {
 const addEvent = async (req, res) => {
   try {
     const {
-      authorID = "",
-      date,
+      authorID = "001",
       image,
       location,
       price,
@@ -28,10 +27,11 @@ const addEvent = async (req, res) => {
       description,
       rules,
       contact,
-      ticketType,
+      dateStart,
+      dateEnd,
     } = req.body;
 
-    console.log(req.body.body);
+    console.log(req.body);
 
     const data = await db.events.doc().set({
       authorID: authorID,
