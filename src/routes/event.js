@@ -5,7 +5,7 @@ const { route } = require("./ads");
 
 router.get("/all", eventController.getAllEvent);
 router.post("/add", eventController.addEvent);
-router.get("/all-my", eventController.getAuthorEvent);
+router.post("/all-my", eventController.getAuthorEvent);
 router.post("/edit", eventController.editEvent);
 
 module.exports = router;
