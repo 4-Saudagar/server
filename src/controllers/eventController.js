@@ -169,6 +169,7 @@ const editEvent = async (req, res) => {
 
 module.exports = {
   getAllEvent,
-
   addEvent,
+  getAuthorEvent,
+  editEvent,
 };
