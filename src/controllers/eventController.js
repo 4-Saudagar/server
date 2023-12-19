@@ -1,4 +1,5 @@
 const db = require("../models/db");
+const { v4: uuid } = require("uuid");
 
 const getAllEvent = async (req, res) => {
   try {
@@ -22,8 +23,8 @@ const addEvent = async (req, res) => {
       authorID = "001",
       image,
       location,
-      price,
       title,
+      ticket,
       description,
       rules,
       contact,
@@ -33,12 +34,12 @@ const addEvent = async (req, res) => {
 
     console.log(req.body);
 
-    const data = await db.events.doc().set({
-      authorID: authorID,
+    const eventID = uuid();
 
+    const data = await db.events.doc(eventID).set({
+      authorID: authorID,
       image: image,
       location: location,
-      price: price,
       title: title,
       description: description,
       rules: rules,
@@ -46,6 +47,16 @@ const addEvent = async (req, res) => {
       dateStart: dateStart,
       dateEnd: dateEnd,
     });
+
+    const promises = ticket.map(async (e) => {
+      await db.tickets.doc(uuid()).set({
+        eventID: eventID,
+        nama: e.nama,
+        harga: e.harga,
+      });
+    });
+
+    await Promise.all(promises);
 
     return res.status(200).send({
       message: "SUCCESS ADD EVENT",

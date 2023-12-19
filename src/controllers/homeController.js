@@ -15,11 +15,22 @@ const getAllData = async (req, res) => {
     const promises = data2.docs.map(async (snapshot) => {
       const event = { ...snapshot.data() };
       const partner = await db.partners.doc(event.authorID).get();
+      const ticket = await db.tickets.where("eventID", "=", snapshot.id).get();
+      const tickets = [];
+      ticket.forEach((ticket) => {
+        tickets.push({
+          ticketID: ticket.id,
+          name: ticket.data().nama,
+          price: ticket.data().harga,
+        });
+      });
+      console.log(ticket);
 
       return {
         author: { ...partner.data() },
         id: snapshot.id,
         ...event,
+        ticket: tickets,
       };
     });
 

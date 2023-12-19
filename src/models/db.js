@@ -6,6 +6,7 @@ const adsCollection = database.collection("ads");
 const ticketsCollection = database.collection("tickets");
 const partnersCollection = database.collection("partners");
 const transactionsCollection = database.collection("transactions");
+const user_ticketCollection = database.collection("user_ticket");
 
 module.exports = {
   users: usersCollection,
