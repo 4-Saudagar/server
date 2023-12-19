@@ -3,7 +3,7 @@ const router = express.Router();
 const partnerController = require("../controllers/partnerController");
 
 router.post("/add", partnerController.addPartners);
-router.post("/all", partnerController.getAllPartners);
+router.get("/all", partnerController.getAllPartners);
 router.post("/allowPartner", partnerController.allowPartner);
 
 module.exports = router;
