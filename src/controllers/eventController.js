@@ -67,6 +67,8 @@ const addEvent = async (req, res) => {
   }
 };
 
+const editEvent = async () => {};
+
 module.exports = {
   getAllEvent,
 

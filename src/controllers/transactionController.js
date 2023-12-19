@@ -22,23 +22,13 @@ const transaction = async (req, res) => {
       whatsapp,
     } = req.body;
 
-    {
-      event_name;
-      ticket_name;
-      ticket_id;
-      jumlah_ticket;
-      nama;
-      email;
-      wa;
-      order_id;
-    }
-
     const userData = {
       id: uuid(),
       nama: nama,
       email: email,
       whatsapp: whatsapp,
     };
+
     console.log("gagal");
 
     const transaction_id = uuid();
