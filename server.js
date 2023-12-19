@@ -9,11 +9,11 @@ const APP_URL = process.env.APP_URL;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(
-  cors({
-    origin: "http://localhost:8100",
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://localhost:8100",
+//   })
+// );
 
 app.get("/", (req, res) => {
   return res.send("Hello");
@@ -35,6 +35,7 @@ app.get("/testmail", (req, res) => {
     email: "EMAIL",
   });
 });
+
 app.get("/testpdf", (req, res) => {
   res.render("pdf/ticket", {
     item_id: "itemid",

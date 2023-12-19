@@ -3,6 +3,9 @@ const ValidationException = require("../exceptions/ValidationException");
 const { sendEmail } = require("../helpers/mailer");
 const path = require("path");
 const { v4: uuid } = require("uuid");
+const fs = require("fs");
+const ejs = require("ejs");
+var pdf = require("html-pdf");
 
 const notif = async (req, res) => {
   try {

@@ -13,16 +13,16 @@ const refreshToken = process.env.GMAIL_OAUTH_REFRESH_TOKEN;
 if (!global.transporter) {
   try {
     global.transporter = nodemailer.createTransport({
-      host,
-      service: 'gmail', 
+      // host,
+      service: "gmail",
       auth: {
-        type: 'OAuth2',
-        user: user, 
-        pass : pass,
-        clientId: clientID,
-        clientSecret: clientSecret,
-        refreshToken: refreshToken,
-      }
+        // type: "OAuth2",
+        user: user,
+        pass: pass,
+        // clientId: clientID,
+        // clientSecret: clientSecret,
+        // refreshToken: refreshToken,
+      },
     });
   } catch (error) {
     console.error("Error creating nodemailer transporter:", error);
