@@ -18,6 +18,28 @@ const getAllPartners = async (req, res) => {
   }
 };
 
+const allowPartner = async (req, res) => {
+  try {
+    const userID = req.body;
+
+    await db.partners.doc().set({
+      partnerID: userID,
+    });
+
+    await db.users.doc(userID).update({
+      type: "2",
+    });
+
+    res.status(200).send({
+      message: "PARTNER  ALLOWED",
+    });
+  } catch (err) {
+    res.status(500).send({
+      message: "PARTNER NOT ALLOWED",
+    });
+  }
+};
+
 const addPartners = async (req, res) => {
   const { orgName, contact, image, orgDesc } = req.body;
   try {
@@ -41,4 +63,5 @@ const addPartners = async (req, res) => {
 module.exports = {
   getAllPartners,
   addPartners,
+  allowPartner,
 };
