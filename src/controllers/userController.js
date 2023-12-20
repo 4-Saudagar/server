@@ -22,7 +22,7 @@ const checkLogin = async (req, res) => {
 
       return res.status(200).json({
         code: 200,
-        data: { id: users.id, ...users.data() },
+        data: { id: id, ...users.data() },
       });
     } else {
       throw new ValidationException(404, "user not found", "USER NOT FOUND");
