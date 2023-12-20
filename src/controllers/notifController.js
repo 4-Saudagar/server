@@ -82,7 +82,7 @@ const notif = async (req, res) => {
         const pageVariables = {
           nama: user.name,
           email: user.email,
-          qr: token,
+          qr: qrCodeImage,
           ticket_token: token,
           ticket_number: i + 1,
           item_id: transaction.ticket_name,
