@@ -20,10 +20,10 @@ const getAllPartners = async (req, res) => {
 
 const allowPartner = async (req, res) => {
   try {
-    const userID = req.body;
+    const { userID } = req.body;
 
-    await db.partners.doc().set({
-      partnerID: userID,
+    await db.partners.doc(userID).update({
+      allow: true,
     });
 
     await db.users.doc(userID).update({
@@ -41,14 +41,14 @@ const allowPartner = async (req, res) => {
 };
 
 const addPartners = async (req, res) => {
-  const { orgName, contact, image, orgDesc } = req.body;
+  const { userID, orgName, contact, image, orgDesc } = req.body;
   try {
-    const data = await db.ads.doc().set({
-      orgName: orgName,
+    const data = await db.partners.doc(userID).set({
       orgName: orgName,
       contact: contact,
       image: image,
       orgDesc: orgDesc,
+      allow: false,
     });
 
     res.status(200).send({
