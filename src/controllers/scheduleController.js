@@ -14,7 +14,10 @@ const schedule = async (req, res) => {
     const promises = allData.map(async (snapShot) => {
       const events = await db.events.doc(snapShot.eventID).get();
       console.log(events);
-      if (events.data().dateEnd > date.toString()) {
+
+      if (
+        events.data().dateEnd.slice(0, 10) >= date.toISOString().slice(0, 10)
+      ) {
         return { id: snapShot.id, ...events.data() };
       }
     });

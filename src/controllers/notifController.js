@@ -6,6 +6,7 @@ const { v4: uuid } = require("uuid");
 const fs = require("fs");
 const ejs = require("ejs");
 var pdf = require("html-pdf");
+const QRCode = require("qrcode");
 
 const notif = async (req, res) => {
   try {
@@ -76,6 +77,7 @@ const notif = async (req, res) => {
 
       for (let i = 0; i < length; i++) {
         const token = uuid();
+        const qrCodeImage = await QRCode.toDataURL(token);
         tokens.push(token);
         const pageVariables = {
           nama: user.name,
