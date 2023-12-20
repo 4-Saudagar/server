@@ -76,11 +76,10 @@ const notif = async (req, res) => {
         });
 
       // email
-      const { nama, email, whatsapp } = transaction;
+      const { nama, email } = transaction;
       const variables = {
         nama,
         email,
-        wa: whatsapp,
         jumlah_ticket: length,
         transaction_id: order_id,
       };
@@ -118,7 +117,6 @@ const notif = async (req, res) => {
           arrival: false,
           ticket_id: transaction.ticket_id,
           nama: nama,
-          wa: whatsapp,
           email: email,
         });
       }
@@ -135,17 +133,3 @@ const notif = async (req, res) => {
 };
 
 module.exports = { notif };
-
-const createPDF = () => {
-  return new Promise((resolve, reject) => {
-    pdf
-      .create(pdfHtmlDoc, {
-        width: "1200px",
-        height: "1650px",
-      })
-      .toStream(function (err, stream) {
-        stream.pipe(fs.createWriteStream(pathName));
-        resolve();
-      });
-  });
-};

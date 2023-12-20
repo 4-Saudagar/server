@@ -23,7 +23,7 @@ const transaction = async (req, res) => {
 
     console.log("gagal");
 
-    const transaction_id = uuid();
+    const transaction_id = "UTIXT-" + uuid();
 
     let all_ticket = [];
     const primises = ticket.map(async (e) => {
