@@ -3,7 +3,7 @@ const db = require("../models/db");
 const scanTicket = async (req, res) => {
   try {
     const { token } = req.body;
-    await db.user_tickets.doc(token).update({
+    await db.user_ticket.doc(token).update({
       arrival: true,
     });
 
