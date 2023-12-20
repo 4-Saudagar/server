@@ -16,7 +16,7 @@ const notif = async (req, res) => {
       throw new ValidationException(404, "bukan transaksi utixt", "DONT KNOW");
     }
 
-    await db.transaction.doc(order_id).set({
+    await db.transaction.doc(order_id).update({
       status: transaction_status,
     });
 

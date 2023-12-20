@@ -66,6 +66,7 @@ const transaction = async (req, res) => {
       ticket: ticket,
       userID: userID,
       email: email,
+      status: "pending",
     });
 
     console.log("gagal 4");
