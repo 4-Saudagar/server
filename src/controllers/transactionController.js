@@ -17,7 +17,7 @@ const transaction = async (req, res) => {
 
     const userData = {
       id: userID,
-      nama: nama,
+
       email: email,
     };
 
@@ -25,19 +25,30 @@ const transaction = async (req, res) => {
 
     const transaction_id = uuid();
 
-    const all_ticket = [];
+    let all_ticket = [];
     const primises = ticket.map(async (e) => {
       const ticket_server = await db.tickets.doc(e.ticketID).get();
       const data = ticket_server.data();
       all_ticket.push(data);
     });
 
-    const gross_amount = 0;
+    await Promise.all(primises);
+
+    let gross_amount = 0;
     all_ticket.map((e, index) => {
       gross_amount += e.harga * ticket[index].jumlah;
     });
 
-    console.log(ticket, data);
+    let item_data = [];
+
+    ticket.forEach((e) => {
+      item_data.push({
+        id: e.ticketID,
+        price: e.price,
+        quantity: e.jumlah,
+        name: e.ticketID,
+      });
+    });
 
     const body = {
       transaction_details: {
@@ -47,7 +58,7 @@ const transaction = async (req, res) => {
       credit_card: {
         secure: true,
       },
-      item_details: ticket,
+      item_details: item_data,
       customer_details: userData,
     };
 
