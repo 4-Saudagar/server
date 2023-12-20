@@ -13,7 +13,7 @@ let snap = new Midtrans.Snap({
 
 const transaction = async (req, res) => {
   try {
-    const { ticket, userID, email } = req.body;
+    const { ticket, userID, email, eventID } = req.body;
 
     const userData = {
       id: userID,
@@ -62,11 +62,14 @@ const transaction = async (req, res) => {
       customer_details: userData,
     };
 
+    console.log("ada");
+
     await db.transaction.doc(transaction_id).set({
       ticket: ticket,
       userID: userID,
       email: email,
       status: "pending",
+      eventID: eventID,
     });
 
     console.log("gagal 4");

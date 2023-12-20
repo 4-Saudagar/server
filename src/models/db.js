@@ -15,4 +15,5 @@ module.exports = {
   tickets: ticketsCollection,
   partners: partnersCollection,
   transaction: transactionsCollection,
+  user_ticket: user_ticketCollection,
 };

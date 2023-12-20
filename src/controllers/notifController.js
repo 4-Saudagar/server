@@ -19,13 +19,35 @@ const notif = async (req, res) => {
     await db.transaction.doc(order_id).update({
       status: transaction_status,
     });
+    console.log("ada");
 
     if (
       transaction_status === "settlement" ||
       transaction_status === "capture"
     ) {
+      console.log("ada2");
       const docRef = await db.transaction.doc(order_id).get();
-      const transaction = docRef.data();
+      const trans = docRef.data();
+      console.log("ada3");
+      const userRef = await db.users.doc(trans.userID).get();
+      const user = userRef.data();
+      console.log("ada4");
+      const eventRef = await db.events.doc(trans.eventID).get();
+      const event = eventRef.data();
+      console.log("ada5");
+
+      let jumlah_ticket = 0;
+      trans.ticket.forEach((e) => {
+        jumlah_ticket += e.jumlah;
+      });
+
+      const transaction = {
+        event_name: event.title,
+        ticket_name: event.title,
+        jumlah_ticket: jumlah_ticket,
+      };
+
+      console.log("ada");
 
       const fullTicketHtmlDir = path.join(
         process.cwd(),
@@ -36,12 +58,19 @@ const notif = async (req, res) => {
         "utf-8"
       );
 
+      console.log("aman");
+
       const attachments = [];
-      let index = 0;
       const length = transaction.jumlah_ticket;
       let pdfVariables = {
         pages: [],
         total: length,
+        event_name: transaction.event_name,
+        item_id: transaction.ticket_name,
+        start: event.dateStart,
+        end: event.dateEnd,
+        date: event.dateEnd,
+        location: event.location,
       };
       let tokens = [];
 
@@ -49,11 +78,11 @@ const notif = async (req, res) => {
         const token = uuid();
         tokens.push(token);
         const pageVariables = {
-          nama,
-          email,
+          nama: user.name,
+          email: user.email,
           qr: token,
           ticket_token: token,
-          ticket_number: 1 + 1,
+          ticket_number: i + 1,
           item_id: transaction.ticket_name,
         };
 
@@ -61,7 +90,7 @@ const notif = async (req, res) => {
       }
 
       const pdfHtmlDoc = ejs.render(fullTicketHtml, pdfVariables);
-      const filename = `Ticket - ` + transaction.event_name + `.pdf`;
+      const filename = `Ticket - ` + transaction.event_name.toString() + `.pdf`;
       const pathName = `storage/${filename}`;
 
       attachments.push({ filename, path: pathName });
@@ -75,13 +104,18 @@ const notif = async (req, res) => {
           stream.pipe(fs.createWriteStream(pathName));
         });
 
-      // email
-      const { nama, email } = transaction;
       const variables = {
-        nama,
-        email,
-        jumlah_ticket: length,
+        event: {
+          title: transaction.event_name,
+          start: event.dateStart,
+          end: event.dateEnd,
+          date: event.dateEnd,
+          loc: event.location,
+        },
+        nama: user.name,
         transaction_id: order_id,
+        jumlah_ticket: jumlah_ticket,
+        email: user.email,
       };
 
       const emailHtmlDir = path.join(
@@ -93,7 +127,7 @@ const notif = async (req, res) => {
       const renderHtml = ejs.render(html, variables);
 
       sendEmail(
-        email,
+        user.email,
         "[ Tiket " + transaction.event_name + " ]",
         renderHtml,
         attachments,
@@ -112,14 +146,27 @@ const notif = async (req, res) => {
         }
       );
 
+      let flag = [];
+      trans.ticket.forEach((e) => {
+        flag.push(e.jumlah);
+      });
+
+      let index = 0;
+
       for (token of tokens) {
+        if ((flag[index] = 0)) {
+          index++;
+        }
+
         await db.user_ticket.doc(token).set({
           arrival: false,
-          ticket_id: transaction.ticket_id,
-          nama: nama,
-          email: email,
+          ticket_id: trans.ticket[index].ticketID,
+          nama: user.name,
+          email: user.email,
         });
+        flag[index]--;
       }
+      res.status(200).send({ message: "Success!" });
     } else if (transaction_status != "pending") {
       await db.transaction.doc(order_id).delete();
     }
@@ -127,9 +174,8 @@ const notif = async (req, res) => {
     res.status(500).send({
       message: err.message,
     });
+    console.log(err);
   }
-
-  console.log(payload);
 };
 
 module.exports = { notif };
