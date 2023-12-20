@@ -10,7 +10,7 @@ const history = async (req, res) => {
       history.push({ id: snapshot.id, ...snapshot.data() });
     });
 
-    res.status(200).json({
+    res.status(200).send({
       data: history,
     });
   } catch (err) {
