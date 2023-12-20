@@ -140,6 +140,8 @@ const editEvent = async (req, res) => {
       dateEnd: dateEnd,
     });
 
+    console.log("aman");
+
     const promises = ticket.map(async (e) => {
       if (!eventID) {
         await db.tickets.doc(uuid()).set({
