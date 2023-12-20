@@ -2,10 +2,12 @@ const db = require("../models/db");
 
 const schedule = async (req, res) => {
   try {
+    const { userID } = req.body;
     const date = new Date();
-    const data = await db.user_tickets
+    const data = await db.user_ticket
       .where("userID", "=", userID)
-      .where("dateEnd", ">", date.toString());
+      .where("dateEnd", ">", date.toString())
+      .get();
 
     const schedule = [];
     data.forEach((snapShot) => {

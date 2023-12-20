@@ -6,7 +6,7 @@ const scheduleController = require("../controllers/scheduleController");
 router.get("/check", userController.checkLogin);
 router.get("/google", userController.googleUser);
 router.get("/regis", userController.userRegis);
-router.get("/history", historyController.history);
-router.get("/schedule", scheduleController.schedule);
+router.post("/history", historyController.history);
+router.post("/schedule", scheduleController.schedule);
 
 module.exports = router;
