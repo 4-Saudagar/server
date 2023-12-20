@@ -12,19 +12,19 @@ const notif = async (req, res) => {
     const payload = req.body;
     const { transaction_status, order_id } = payload;
 
-    if (!order_id.startsWith("UTIXT-")) {
-      throw new ValidationException(404, "bukan transaksi utixt", "DONT KNOW");
-    }
-
-    await db.transaction.doc(order_id).update({
-      status: transaction_status,
-    });
-    console.log("ada");
+    // if (!order_id.startsWith("UTIXT-")) {
+    //   throw new ValidationException(404, "bukan transaksi utixt", "DONT KNOW");
+    // }
 
     if (
       transaction_status === "settlement" ||
       transaction_status === "capture"
     ) {
+      await db.transaction.doc(order_id).update({
+        status: transaction_status,
+      });
+
+      console.log("ada");
       console.log("ada2");
       const docRef = await db.transaction.doc(order_id).get();
       const trans = docRef.data();
