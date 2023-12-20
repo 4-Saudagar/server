@@ -82,6 +82,7 @@ const googleUser = async (req, res) => {
 
 const userRegis = async (req, res) => {
   try {
+    const { name } = req.body;
     const token = req.headers.authorization.split(" ")[1];
     console.log("token: " + token);
     if (!token) {
@@ -93,7 +94,7 @@ const userRegis = async (req, res) => {
     console.log("user", decodeValue);
 
     await db.users.doc(id).set({
-      name: "",
+      name: name,
       image: "",
       email: decodeValue.email,
       type: 3,

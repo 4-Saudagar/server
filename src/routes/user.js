@@ -5,7 +5,7 @@ const historyController = require("../controllers/historyController");
 const scheduleController = require("../controllers/scheduleController");
 router.get("/check", userController.checkLogin);
 router.get("/google", userController.googleUser);
-router.get("/regis", userController.userRegis);
+router.post("/regis", userController.userRegis);
 router.post("/history", historyController.history);
 router.post("/schedule", scheduleController.schedule);
 
