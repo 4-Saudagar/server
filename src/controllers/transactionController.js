@@ -13,50 +13,49 @@ let snap = new Midtrans.Snap({
 
 const transaction = async (req, res) => {
   try {
-    const {
-      tickets_id = "2q22hC1nfPIjqtHysKVF",
-      jumlah = 2,
-      id,
-      nama,
-      email,
-      whatsapp,
-    } = req.body;
+    const { ticket, userID, email } = req.body;
 
     const userData = {
-      id: uuid(),
+      id: userID,
       nama: nama,
       email: email,
-      whatsapp: whatsapp,
     };
 
     console.log("gagal");
 
     const transaction_id = uuid();
 
-    const data = await db.tickets.doc(tickets_id).get();
+    const all_ticket = [];
+    const primises = ticket.map(async (e) => {
+      const ticket_server = await db.tickets.doc(e.ticketID).get();
+      const data = ticket_server.data();
+      all_ticket.push(data);
+    });
 
-    const ticket = data.data();
+    const gross_amount = 0;
+    all_ticket.map((e, index) => {
+      gross_amount += e.harga * ticket[index].jumlah;
+    });
 
     console.log(ticket, data);
 
     const body = {
       transaction_details: {
         order_id: transaction_id,
-        gross_amount: Number(ticket.price) * Number(jumlah),
+        gross_amount: gross_amount,
       },
       credit_card: {
         secure: true,
       },
-      item_details: [
-        {
-          id: tickets_id,
-          price: ticket.price,
-          name: ticket.name,
-          quantity: jumlah,
-        },
-      ],
+      item_details: ticket,
       customer_details: userData,
     };
+
+    await db.transaction.doc(transaction_id).set({
+      ticket: ticket,
+      userID: userID,
+      email: email,
+    });
 
     console.log("gagal 4");
     const token = await snap.createTransactionToken(body);
