@@ -6,6 +6,7 @@ const { route } = require("./ads");
 router.get("/all", eventController.getAllEvent);
 router.post("/add", eventController.addEvent);
 router.post("/all-my", eventController.getAuthorEvent);
+router.post("/all-buyer", eventController.getBuyerEvent);
 router.post("/edit", eventController.editEvent);
 
 module.exports = router;

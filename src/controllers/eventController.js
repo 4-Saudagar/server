@@ -169,9 +169,71 @@ const editEvent = async (req, res) => {
   }
 };
 
+const getBuyerEvent = async (req, res) => {
+  try {
+    const { authorID } = req.body;
+    const data = await db.events.where("authorID", "=", authorID).get();
+
+    let events = [];
+
+    const promises = data.docs.map(async (snapshot) => {
+      const event = { ...snapshot.data() };
+      const ticket = await db.tickets.where("eventID", "=", snapshot.id).get();
+      const user_ticket = await db.user_ticket.get();
+      const tickets = [];
+      const user_tickets = [];
+      ticket.forEach((ticket) => {
+        tickets.push({
+          ticketID: ticket.id,
+          name: ticket.data().nama,
+          price: ticket.data().harga,
+        });
+      });
+      user_ticket.forEach((ut) => {
+        if (ut.data().eventID == snapshot.id) {
+          user_tickets.push({
+            email: ut.data().email,
+            nama: ut.data().nama,
+            eventID: ut.data().eventID,
+            ticket_id: ut.data().ticket_id,
+          });
+        }
+      });
+      // console.log(tickets);
+      console.log(user_tickets);
+      // user_ticket.forEach((test) => {
+      //   console.log(test.data());
+      // });
+
+      // console.log(ticket);
+
+      return {
+        author: { authorID },
+        id: snapshot.id,
+        ...event,
+        ticket: tickets,
+        user_tickets: user_tickets,
+      };
+    });
+
+    events = await Promise.all(promises);
+
+    return res.status(200).send({
+      status: 200,
+      data: events,
+    });
+  } catch (err) {
+    return res.status(500).send({
+      status: 500,
+      message: err.message,
+    });
+  }
+};
+
 module.exports = {
   getAllEvent,
   addEvent,
   getAuthorEvent,
   editEvent,
+  getBuyerEvent,
 };
