@@ -163,6 +163,7 @@ const notif = async (req, res) => {
           ticket_id: trans.ticket[index].ticketID,
           nama: user.name,
           email: user.email,
+          eventID: trans.eventID,
         });
         flag[index]--;
       }

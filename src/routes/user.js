@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const historyController = require("../controllers/historyController");
 const scheduleController = require("../controllers/scheduleController");
+
 router.get("/check", userController.checkLogin);
 router.get("/google", userController.googleUser);
 router.post("/regis", userController.userRegis);

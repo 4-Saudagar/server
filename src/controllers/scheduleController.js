@@ -2,20 +2,31 @@ const db = require("../models/db");
 
 const schedule = async (req, res) => {
   try {
-    const { userID } = req.body;
+    const { email } = req.body;
     const date = new Date();
-    const data = await db.user_ticket
-      .where("userID", "=", userID)
-      .where("dateEnd", ">", date.toString())
-      .get();
+    const data = await db.user_ticket.where("email", "==", email).get();
 
-    const schedule = [];
+    let allData = [];
     data.forEach((snapShot) => {
-      schedule.push({ id: snapShot.id, ...snapShot.data() });
+      allData.push({ id: snapShot.id, ...snapShot.data() });
     });
+
+    const promises = allData.map(async (snapShot) => {
+      const events = await db.events.doc(snapShot.eventID).get();
+      console.log(events);
+      if (events.data().dateEnd > date.toString()) {
+        return { id: snapShot.id, ...events.data() };
+      }
+    });
+
+    const schedule = await Promise.all(promises);
+
+    // console.log(schedule);
+    // console.log(allData);
     res.status(200).send({ data: schedule });
   } catch (err) {
-    res.status(500).send({ err: err });
+    res.status(500).send({ err: err.message });
+    console.error(err);
   }
 };
 
